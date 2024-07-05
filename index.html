@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Slider Example</title>
+
+    <style>
+        * {
+            margin: 0;
+        }
+
+        #sliderContainer {
+            position: relative;
+        }
+
+        .slides>img {
+            width: 100%;
+        }
+
+        .previous,
+        .next {
+            background-color: black;
+            width: auto;
+            color: white;
+            padding: 20px;
+            font-size: 23px;
+            font-weight: 900;
+            position: absolute;
+            top: 30%;
+            opacity: .5;
+            transition: .5s ease-in;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .previous:hover,
+        .next:hover {
+            opacity: 1;
+        }
+
+        .number {
+            width: 5px;
+            height: 5px;
+            background-color: rgb(0, 0, 0);
+            text-align: center;
+            border-radius: 50%;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="sliderContainer">
+        <div class="slides">
+            <img src="https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/aa97d7809ad44d08.jpg?q=20" alt="">
+        </div>
+        <div class="slides">
+            <img src="https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/7b71f56fa9db3655.jpg?q=20" alt="">
+        </div>
+        <div class="slides">
+            <img src="https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/545ad583ca1e646e.png?q=20" alt="">
+        </div>
+        <div class="slides">
+            <img src="https://rukminim2.flixcart.com/fk-p-flap/1600/270/image/d523b3be81ebfb40.jpg?q=20" alt="">
+        </div>
+
+        <div class="previous" onclick="addSlide(-1)"><</div>
+        <div class="next" onclick="addSlide(1)">></div>
+
+    </div>
+
+    <div style="display: flex;justify-content: center;align-items: center;gap:10px;">
+        <p class="number"></p>
+        <p class="number"></p>
+        <p class="number"></p>
+        <p class="number"></p>
+    </div>
+
+    <script>
+        var index = 1;
+        showImage(index);
+
+        function addSlide(slide) {
+            index = index + slide;
+            console.log("index value", index);
+            showImage(index);
+        }
+
+        function showImage(n) {
+            var allSlides = document.querySelectorAll(".slides");
+            var allDots = document.querySelectorAll(".number");
+
+            if (n > allSlides.length) {
+                index = 1;
+            }
+
+            if (n < 1) {
+                index = allSlides.length;
+            }
+
+            for (var i = 0; i < allSlides.length; i++) {
+                allSlides[i].style.display = "none";
+            }
+
+            for (var i = 0; i < allDots.length; i++) {
+                allDots[i].style.backgroundColor = "black";
+            }
+
+            allSlides[index - 1].style.display = "block";
+            allDots[index - 1].style.backgroundColor = "red";
+        }
+
+         // Automatic sliding
+         function autoSlide() {
+            addSlide(1); // Move to the next slide
+            setTimeout(autoSlide, 5000); // Call autoSlide function again after 2 seconds
+        }
+        autoSlide(); // Start the automatic sliding
+    </script>
+</body>
+
+</html>
